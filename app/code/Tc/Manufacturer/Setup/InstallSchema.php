@@ -7,7 +7,6 @@ use \Magento\Framework\DB\Ddl\Table;
 use \Magento\Framework\DB\Adapter\AdapterInterface;
 class InstallSchema implements InstallSchemaInterface
 {
-
     public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
         $installer = $setup;
