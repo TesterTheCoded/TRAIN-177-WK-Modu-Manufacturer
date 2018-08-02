@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Tc_Manufacturer::manufacturer" title="Manufacturer" module="Tc_Manufacturer" resource="Tc_Manufacturer::manufacturer"
+             sortOrder="99" action="manufacturer"/>
+    </menu>
+</config>
+
