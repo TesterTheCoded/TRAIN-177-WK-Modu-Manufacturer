@@ -20,7 +20,6 @@ class Action extends Column
     /** Url path */
     const URL_PATH_EDIT = 'manufacturer/index/edit';
     const URL_PATH_DELETE = 'manufacturer/index/delete';
-    const URL_PATH_CREATE = 'manufacturer/index/create';
 
 
     /** @var UrlBuilder */
@@ -74,10 +73,10 @@ class Action extends Column
                             'message' => __('Are you sure you wan\'t to delete a ${ $.$data.title } record?')
                         ]
                     ];
-                    $item[$name]['create'] = [
-                        'href' => $this->urlBuilder->getUrl(self::URL_PATH_CREATE, ['id' => $item['id']]),
-                        'label' => __('Create')
-                    ];
+//                    $item[$name]['create'] = [
+//                        'href' => $this->urlBuilder->getUrl(self::URL_PATH_CREATE, ['id' => $item['id']]),
+//                        'label' => __('Create')
+//                    ];
                 }
             }
 

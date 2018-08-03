@@ -8,48 +8,55 @@
 
 namespace Tc\Manufacturer\Controller\Adminhtml\Index;
 
-
+use TC\Manufacturer\Model\Manufacturer;
+use Magento\Backend\App\Action\Context;
+use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Backend\App\Action;
-
 class Save extends Action
 {
-    protected $manufacturerFactory;
+    protected $dataPersistor;
+    public function __construct(Context $context, DataPersistorInterface $dataPersistor)
+    {
+        $this->dataPersistor = $dataPersistor;
+        parent::__construct($context);
+    }
     public function execute()
     {
-        $isPost = $this->getRequest()->getPost();
-
-        if ($isPost) {
-            $manufacturerModel = $this->_manufacturerFactory->create();
-            $manufacturerId = $this->getRequest()->getParam('id');
-
-            if ($manufacturerId) {
-                $manufacturerModel->load($manufacturerId);
+        $resultRedirect = $this->resultRedirectFactory->create();
+        $data = $this->getRequest()->getPostValue();
+        if ($data) {
+            $id = $this->getRequest()->getParam('id');
+            if (empty($data['id'])) {
+                $data['id'] = null;
             }
-            $formData = $this->getRequest()->getParam('news');
-            $manufacturerModel->setData($formData);
-
+            $manufacturer = $this->_objectManager->create(Manufacturer::class)->load($id);
+            $data = $this->_filterImageData($data);
+            $manufacturer->setData($data);
             try {
-                // Save news
-                $manufacturerModel->save();
-
-                // Display success message
-                $this->messageManager->addSuccess(__('The news has been saved.'));
-
-                // Check if 'Save and Continue'
-                if ($this->getRequest()->getParam('back')) {
-                    $this->_redirect('*/*/edit', ['id' => $manufacturerModel->getId(), '_current' => true]);
-                    return;
-                }
-
-                // Go to grid page
-                $this->_redirect('*/*/');
-                return;
-            } catch (\Exception $e) {
-                $this->messageManager->addError($e->getMessage());
+                $manufacturer->save();
+                $this->messageManager->addSuccess(__('Manufacturer %1 has been saved!', $data['name']));
+                $this->dataPersistor->clear('manufacturer');
+                return $resultRedirect->setPath('*/*/');
+            } catch (Exception $e) {
+                $this->messageManager->addError(__('Error has occurred while saving Manufacturer!'));
             }
-
-            $this->_getSession()->setFormData($formData);
-            $this->_redirect('*/*/edit', ['id' => $manufacturerId]);
+            $this->dataPersistor->set('manufacturer', $data);
+            return $resultRedirect->setPath('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
         }
+        return $resultRedirect->setPath('*/*/');
+    }
+    public function _filterImageData(array $rawData)
+    {
+        $data = $rawData;
+        if (isset($data['logo_url'][0]['name'])) {
+            $data['logo_url'] = $data['logo_url'][0]['name'];
+        } else {
+            $data['logo_url'] = null;
+        }
+        return $data;
+    }
+    public function _isAllowed(): string
+    {
+        return $this->_authorization->isAllowed('TC_Manufacturer::manufacturer');
     }
 }

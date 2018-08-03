@@ -2,8 +2,8 @@
 <form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">tc_manufacturer_form.manufacturer_form_data_source</item>
-            <item name="deps" xsi:type="string">tc_manufacturer_form.manufacturer_form_data_source</item>
+            <item name="provider" xsi:type="string">manufacturer_index_form.manufacturer_index_form_data_source</item>
+            <item name="deps" xsi:type="string">manufacturer_index_form.manufacturer_index_form_data_source</item>
         </item>
         <item name="label" xsi:type="string" translate="true">Sample Form</item>
         <item name="layout" xsi:type="array">
@@ -18,11 +18,11 @@
         </item>
     </argument>
 
-    <dataSource name="manufacturer_form_data_source">
+    <dataSource name="manufacturer_index_form_data_source">
         <argument name="dataProvider" xsi:type="configurableObject">
             <argument name="class" xsi:type="string">Tc\Manufacturer\Model\Manufacturer\DataProvider</argument>
-            <argument name="name" xsi:type="string">manufacturer_form_data_source</argument>
-            <argument name="primaryFieldName" xsi:type="string">tc_manufacturer_id</argument>
+            <argument name="name" xsi:type="string">manufacturer_index_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">id</argument>
             <argument name="requestFieldName" xsi:type="string">id</argument>
         </argument>
         <argument name="data" xsi:type="array">
@@ -40,7 +40,7 @@
         </argument>
 
         <!-- This field represents form id and is hidden -->
-        <field name="tc_manufacturer_id">
+        <field name="id">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="visible" xsi:type="boolean">false</item>
@@ -64,15 +64,35 @@
             </argument>
         </field>
 
+        <field name="logo_url" formElement="fileUploader">
+            <settings>
+                <notice translate="true">Allowed file types: jpg, jpeg, gif, png.</notice>
+                <label translate="true">Logo</label>
+                <componentType>fileUploader</componentType>
+            </settings>
+            <formElements>
+                <fileUploader>
+                    <settings>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>10240000</maxFileSize>
+                        <placeholderType>image</placeholderType>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <uploaderConfig>
+                            <param xsi:type="string" name="url">manufacturer/manufacturer/upload</param>
+                        </uploaderConfig>
+                    </settings>
+                </fileUploader>
+            </formElements>
+        </field>
 
         <!-- This field has data type 'text' and standard 'input' form element and looks like input -->
         <field name="description">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="label" xsi:type="string">Email</item>
+                    <item name="label" xsi:type="string">Description</item>
                     <item name="visible" xsi:type="boolean">true</item>
                     <item name="dataType" xsi:type="string">text</item>
-                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
                     <item name="source" xsi:type="string">manufacturer</item>
                 </item>
             </argument>

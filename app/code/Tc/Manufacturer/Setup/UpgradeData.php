@@ -50,6 +50,10 @@ class UpgradeData implements UpgradeDataInterface
             }
         }
 
+        if (version_compare($context->getVersion(), '1.0.2') < 0) {
+        
+        }
+
         $setup->endSetup();
     }
 }

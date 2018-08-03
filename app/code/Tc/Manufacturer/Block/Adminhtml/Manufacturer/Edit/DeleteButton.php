@@ -10,7 +10,7 @@ namespace Tc\Manufacturer\Block\Adminhtml\Manufacturer\Edit;
 
 
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
-use Tc\Manufacturer\Block\Adminhtml\Edit\GenericButton;
+use Tc\Manufacturer\Block\Adminhtml\GenericButton;
 
 class DeleteButton extends GenericButton implements ButtonProviderInterface
 {
@@ -32,6 +32,6 @@ class DeleteButton extends GenericButton implements ButtonProviderInterface
 
     public function getDeleteUrl()
     {
-        return $this->getUrl('*/*/delete', ['tc_manufacturer_id' => $this->getId()]);
+        return $this->getUrl('*/*/delete', ['id' => $this->getId()]);
     }
 }
