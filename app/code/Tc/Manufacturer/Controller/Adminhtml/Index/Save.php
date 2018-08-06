@@ -55,7 +55,7 @@ class Save extends Action
         }
         return $data;
     }
-    public function _isAllowed(): string
+    public function _isAllowed()
     {
         return $this->_authorization->isAllowed('TC_Manufacturer::manufacturer');
     }

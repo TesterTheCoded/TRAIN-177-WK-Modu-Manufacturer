@@ -28,14 +28,14 @@ class UpgradeData implements UpgradeDataInterface
                 // Declare data
                 $data = [
                     [
-                        'name' => 'How to create a simple module',
+                        'name' => 'Wool',
                         'logo_url' => 'The summary',
                         'description' => 'The description',
                         'created_date' => date('Y-m-d H:i:s'),
                         'updated_date' => date('Y-m-d H:i:s'),
                     ],
                     [
-                        'name' => 'Create a module with custom database table',
+                        'name' => 'Fur',
                         'logo_url' => 'The summary',
                         'description' => 'The description',
                         'created_date' => date('Y-m-d H:i:s'),
@@ -51,7 +51,7 @@ class UpgradeData implements UpgradeDataInterface
         }
 
         if (version_compare($context->getVersion(), '1.0.2') < 0) {
-        
+
         }
 
         $setup->endSetup();
