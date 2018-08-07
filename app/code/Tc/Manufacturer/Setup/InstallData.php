@@ -26,7 +26,6 @@ class InstallData implements InstallDataInterface
     ) {
         $setup->startSetup();
 
-        // Get tutorial_simplenews table
         $tableName = $setup->getTable('manufacturer');
         // Check if the table already exists
         if ($setup->getConnection()->isTableExists($tableName) == true) {
@@ -50,37 +49,13 @@ class InstallData implements InstallDataInterface
 
 
         }
-
         // Insert data to table
         foreach ($data as $item) {
             $setup->getConnection()->insert($tableName, $item);
         }
 
-        $eavSetup = $this->eavSetupFactory->create();
-        $eavSetup->addAttribute(
-            \Magento\Catalog\Model\Product::ENTITY,
-            'manufacturer',
-            [
-                'group' => 'General',
-                'type' => 'varchar',
-                'label' => 'Manufacturer',
-                'input' => 'select',
-                'source' => 'Tc\Manufacturer\Model\Attribute\Source\Manufacturer',
-                'backend' => 'Tc\Manufacturer\Model\Attribute\Backend\Manufacturer',
-                'required' => false,
-                'sort_order' => 50,
-                'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
-                'is_used_in_grid' => false,
-                'is_visible_in_grid' => false,
-                'is_filterable_in_grid' => false,
-                'visible' => true,
-                'is_html_allowed_on_front' => true,
-                'visible_on_front' => false
-            ]
-        );
-
-
 
         $setup->endSetup();
+
     }
 }

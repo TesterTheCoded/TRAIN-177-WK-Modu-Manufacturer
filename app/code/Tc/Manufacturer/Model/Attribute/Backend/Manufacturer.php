@@ -9,7 +9,7 @@
 namespace Tc\Manufacturer\Model\Attribute\Backend;
 
 
-class Manufacurer extends \Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend
+class Manufacturer extends \Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend
 {
     /**
      * Validate
@@ -21,11 +21,11 @@ class Manufacurer extends \Magento\Eav\Model\Entity\Attribute\Backend\AbstractBa
     public function validate($object)
     {
         $value = $object->getData($this->getAttribute()->getAttributeCode());
-        if ( ($object->getAttributeSetId() == 10) && ($value == 'wool')) {
-            throw new \Magento\Framework\Exception\LocalizedException(
-                __('Bottom can not be wool.')
-            );
-        }
+//        if ( ($object->getAttributeSetId() == 10) && ($value == 'wool')) {
+//            throw new \Magento\Framework\Exception\LocalizedException(
+//                __('Bottom can not be wool.')
+//            );
+//        }
         return true;
     }
 }
